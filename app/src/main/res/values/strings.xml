@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Dhakshin Kitchen</string>
+    <string name="menu_new">New Order</string>
+    <string name="menu_ongoing">Ongoing Orders</string>
+    <string name="menu_history">Order History</string>
+    <string name="menu_takeaway">Takeaway</string>
+</resources>
