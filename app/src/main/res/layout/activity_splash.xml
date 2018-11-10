@@ -12,7 +12,7 @@
   <ImageView
       android:layout_width="match_parent"
       android:layout_height="200dp"
-      android:background="@drawable/dk"
+      android:src="@drawable/lg"
       android:layout_centerInParent="true"/>
 
   <ProgressBar
@@ -20,5 +20,5 @@
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       android:layout_centerHorizontal="true"
-      android:backgroundTint="@color/colorAccent"/>
+      android:backgroundTint="@color/buttonColor"/>
 </RelativeLayout>

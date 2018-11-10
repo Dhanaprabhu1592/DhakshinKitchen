@@ -1,6 +1,8 @@
 package com.whistledevelopers.dhakshinkitchen;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +10,9 @@ import android.widget.Button;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
     Button btn_new,btn_ongoing,btn_history,btn_take_away;
+    SharedPreferences sharedpreferences;
+    public static final String SHARED_PREF_NAME = "Dhakshin";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         btn_ongoing.setOnClickListener(this);
         btn_history.setOnClickListener(this);
         btn_take_away.setOnClickListener(this);
+
+        SharedPreferences sp = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.putString("reloadArray", "false");
+
+        editor.apply();
     }
 
     @Override

@@ -6,71 +6,78 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     tools:context=".HomeActivity"
-    android:padding="20dp">
-
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:id="@+id/img_logo"
-        android:background="@drawable/dk"/>
-
-    <LinearLayout
+   >
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_below="@+id/img_logo"
-        android:layout_margin="20dp"
-        android:weightSum="4"
-        >
-        <Button
+        android:layout_height="match_parent">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/menu_new"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:fontFamily="@font/impacted"
-            android:textColor="@color/textColor"
-            android:id="@+id/btn_new"
-            android:background="@drawable/btn_bg"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:textColor="@color/textColor"
-            android:text="@string/menu_ongoing"
-            android:fontFamily="@font/impacted"
-            android:id="@+id/btn_ongoing"
-            android:background="@drawable/btn_bg"/>
+            android:padding="20dp">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:text="@string/menu_history"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:textColor="@color/textColor"
-            android:id="@+id/btn_history"
-            android:fontFamily="@font/impacted"
-            android:background="@drawable/btn_bg"/>
+            <ImageView
+                android:id="@+id/img_logo"
+                android:layout_width="200dp"
+                android:layout_height="160dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/lg" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:text="@string/menu_takeaway"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:textColor="@color/textColor"
-            android:fontFamily="@font/impacted"
-            android:id="@+id/take_away"
-            android:background="@drawable/btn_bg"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/img_logo"
+                android:layout_margin="20dp"
+                android:orientation="vertical"
+                android:weightSum="4">
+
+                <Button
+                    android:id="@+id/btn_new"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/btn_bg"
+                    android:fontFamily="@font/impacted"
+                    android:text="@string/menu_new"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@color/textColor" />
+
+                <Button
+                    android:id="@+id/btn_ongoing"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_bg"
+                    android:fontFamily="@font/impacted"
+                    android:text="@string/menu_ongoing"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@color/textColor" />
+
+                <Button
+                    android:id="@+id/btn_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_bg"
+                    android:fontFamily="@font/impacted"
+                    android:text="@string/menu_history"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@color/textColor" />
+
+                <Button
+                    android:id="@+id/take_away"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_bg"
+                    android:fontFamily="@font/impacted"
+                    android:text="@string/menu_takeaway"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@color/textColor" />
 
 
-    </LinearLayout>
+            </LinearLayout>
 
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

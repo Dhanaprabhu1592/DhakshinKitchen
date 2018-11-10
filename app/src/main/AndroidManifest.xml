@@ -17,9 +17,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeActivity" />
-        <activity android:name=".OrderActivity"
-            android:theme="@style/Theme.AppCompat.Light"/>
-        <activity android:name=".ConfirmOrderActivity"></activity>
+        <activity
+            android:name=".OrderActivity"
+            android:theme="@style/Theme.AppCompat.Light">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".HomeActivity" />
+        </activity>
+        <activity android:name=".ConfirmOrderActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".NextActivity"></activity>
     </application>
 
 </manifest>

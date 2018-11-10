@@ -1,18 +1,24 @@
 package com.whistledevelopers.dhakshinkitchen;
 
-public class ItemsModel {
+import java.io.Serializable;
+
+public class ItemsModel implements Serializable{
 
 
     String name;
     String count;
+    boolean isSelected;
 
-    public ItemsModel() {
+    public boolean isSelected() {
+        return isSelected;
     }
 
-    public ItemsModel(String name, String count) {
-        this.name = name;
-        this.count = count;
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
+
+
+
 
 
     public String getName() {
