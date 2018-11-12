@@ -20,5 +20,5 @@
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       android:layout_centerHorizontal="true"
-      android:backgroundTint="@color/buttonColor"/>
+      android:indeterminateDrawable="@drawable/progress"/>
 </RelativeLayout>

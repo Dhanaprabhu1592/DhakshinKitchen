@@ -37,7 +37,8 @@ public class ConfirmItemAdapter extends RecyclerView.Adapter<ConfirmItemAdapter.
             holder.txt_qty.setText(confirmItemModel.getCount());
         }else{
             holder.relativeLayoutMaster.setVisibility(View.GONE);
-
+            ConfirmOrderActivity.txt_warning.setVisibility(View.VISIBLE);
+            ConfirmOrderActivity.btn_placeorder.setEnabled(false);
         }
 
     }

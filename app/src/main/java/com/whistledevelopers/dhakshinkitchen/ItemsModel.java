@@ -9,6 +9,7 @@ public class ItemsModel implements Serializable{
     String count;
     boolean isSelected;
 
+
     public boolean isSelected() {
         return isSelected;
     }

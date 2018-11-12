@@ -39,6 +39,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     }
 
+
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,13 +54,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         confirmItemModel=new ArrayList<ConfirmItemModel>();
 
         holder.text_name.setText(model.getName());
-        holder.text_count.setText(model.getCount());
+        holder.txt_qty.setText(model.getCount());
         holder.btn_inc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int qty=Integer.valueOf((String) holder.txt_qty.getText());
                 if(qty==0){
                     qty++;
+                    holder.btn_dec.setEnabled(true);
+
                     holder.txt_qty.setText(String.valueOf(qty));
                     SharedPreferences sp = context.getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp.edit();
@@ -78,6 +81,33 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                     //confirmItemModel.add(new ConfirmItemModel(model.getName(),model.getCount(),String.valueOf(qty)));
                     itemsModelList.get(holder.getAdapterPosition()).setCount(String.valueOf(qty));
                     itemsModelList.get(holder.getAdapterPosition()).setSelected(true);
+
+
+                    holder.txt_qty.setText(String.valueOf(qty));
+
+
+
+
+
+                }
+
+            }
+
+        });
+        holder.btn_dec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int qty=Integer.valueOf((String) holder.txt_qty.getText());
+                if(qty==0){
+                    holder.btn_dec.setEnabled(false);
+                    itemsModelList.get(holder.getAdapterPosition()).setSelected(true);
+
+                }else if(qty>0){
+
+                    qty--;
+                    //confirmItemModel.add(new ConfirmItemModel(model.getName(),model.getCount(),String.valueOf(qty)));
+                    itemsModelList.get(holder.getAdapterPosition()).setCount(String.valueOf(qty));
+                   // itemsModelList.get(holder.getAdapterPosition()).setSelected(true);
 
 
                     holder.txt_qty.setText(String.valueOf(qty));

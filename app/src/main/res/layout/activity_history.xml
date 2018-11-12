@@ -5,13 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".OrderActivity">
-    <ProgressBar
+    tools:context=".HistoryActivity">
+   <!-- <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:elevation="5dp"
+        android:id="@+id/card"
+        android:backgroundTint="@color/colorPrimaryDark">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Ongoing Orders"
+            android:textColor="@android:color/white"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:gravity="center"
+            android:fontFamily="@font/impact"/>
+    </android.support.v7.widget.CardView>
+   --> <ProgressBar
         android:id="@+id/progressbar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"
+        android:layout_below="@+id/card"
         android:max="100"
         android:visibility="gone"
         android:backgroundTint="@color/colorPrimaryDark"
@@ -19,64 +35,63 @@
         android:layout_marginTop="-7dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="2dp"
         android:orientation="horizontal"
-        android:id="@+id/linear"
-        android:padding="5dp"
-        android:background="@drawable/linear"
-        android:layout_below="@+id/progressbar"
-        android:layout_marginBottom="2dp"
-        >
-         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select Table     :"
-            android:layout_weight="1"
-             android:gravity="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            android:layout_gravity="center"
-            android:textColor="@color/colorPrimaryDark"/>
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner_table"
-        android:layout_weight="1"
-
-        ></Spinner>
-       <!-- <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="OrderID"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal"/>
+        android:id="@+id/card"
+        android:background="@color/buttonColor"
+        android:elevation="5dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/text_orderid"
-            android:layout_weight="1"/>
-    --></LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:id="@+id/view"
-        android:layout_below="@+id/linear"
-        android:background="@color/colorPrimaryDark"/>
+            android:layout_weight="1"
+            android:text="OrderID"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:gravity="center"
+            android:id="@+id/txt_orderId"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_toRightOf="@+id/txt_name"
+            android:textColor="@android:color/white"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:id="@+id/txt_tableno"
+            android:text="Table No"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:text="Status"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_toRightOf="@+id/txt_name"
+            android:textColor="@android:color/white"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:id="@+id/txt_status"/>
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/view"
+        android:layout_below="@+id/progressbar"
         android:layout_weight="1"
-        android:layout_marginTop="3dp"
-        android:id="@+id/recycler_view"></android.support.v7.widget.RecyclerView>
+        android:layout_marginTop="5dp"
+        android:id="@+id/recycler_view_ongoing"></android.support.v7.widget.RecyclerView>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_confirm"
+        android:id="@+id/btn_back"
         android:layout_alignParentBottom="true"
         android:backgroundTint="@color/textColor"
-        android:text="Confirm Order"
+        android:text="Back"
+        android:textColor="@android:color/white"
 
         android:fontFamily="@font/impacted"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"

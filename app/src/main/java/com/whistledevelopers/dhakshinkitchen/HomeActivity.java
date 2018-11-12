@@ -7,10 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
     Button btn_new,btn_ongoing,btn_history,btn_take_away;
-    SharedPreferences sharedpreferences;
+    //SharedPreferences sharedpreferences;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
     public static final String SHARED_PREF_NAME = "Dhakshin";
 
 
@@ -27,8 +30,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         btn_history.setOnClickListener(this);
         btn_take_away.setOnClickListener(this);
 
-        SharedPreferences sp = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
+        sp = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+        editor = sp.edit();
 
         editor.putString("reloadArray", "false");
 
@@ -39,13 +42,28 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_new:
+                editor.putString("type", "dining");
+
+                editor.apply();
+
                 startActivity(new Intent(HomeActivity.this,OrderActivity.class));
                 break;
             case R.id.btn_ongoing:
+                Intent intent=new Intent(HomeActivity.this,HistoryActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 break;
             case R.id.btn_history:
+                Intent intentHistory=new Intent(HomeActivity.this,HistoryActivity.class);
+                intentHistory.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentHistory);
                 break;
             case R.id.take_away:
+                editor.putString("type", "takeaway");
+
+                editor.apply();
+
+                startActivity(new Intent(HomeActivity.this,OrderActivity.class));
                 break;
         }
 
