@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HistoryActivity">
+    tools:context=".activity.HistoryActivity">
    <!-- <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -76,6 +76,13 @@
             android:id="@+id/txt_status"/>
 
     </LinearLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToRefresh"
+        android:layout_width="match_parent"
+        android:layout_above="@+id/btn_back"
+        android:layout_below="@+id/progressbar"
+
+        android:layout_height="wrap_content">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
@@ -83,7 +90,10 @@
         android:layout_below="@+id/progressbar"
         android:layout_weight="1"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/btn_back"
         android:id="@+id/recycler_view_ongoing"></android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

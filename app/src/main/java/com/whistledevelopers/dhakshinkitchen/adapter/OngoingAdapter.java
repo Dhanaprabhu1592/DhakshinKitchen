@@ -1,4 +1,4 @@
-package com.whistledevelopers.dhakshinkitchen;
+package com.whistledevelopers.dhakshinkitchen.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,13 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.whistledevelopers.dhakshinkitchen.model.OngoingModel;
+import com.whistledevelopers.dhakshinkitchen.R;
+import com.whistledevelopers.dhakshinkitchen.activity.OngoingActivity;
+
 import java.util.List;
 
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.OngoingViewHolder> {
+public class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.OngoingViewHolder> {
     Context context;
     List<OngoingModel> ongoingModels;
 
-    public HistoryAdapter(HistoryActivity context, List<OngoingModel> ongoingModels) {
+    public OngoingAdapter(OngoingActivity context, List<OngoingModel> ongoingModels) {
         this.context=context;
         this.ongoingModels=ongoingModels;
     }

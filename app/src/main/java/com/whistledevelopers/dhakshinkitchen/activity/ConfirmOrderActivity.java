@@ -1,9 +1,8 @@
-package com.whistledevelopers.dhakshinkitchen;
+package com.whistledevelopers.dhakshinkitchen.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,28 +21,29 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.whistledevelopers.dhakshinkitchen.adapter.ConfirmItemAdapter;
+import com.whistledevelopers.dhakshinkitchen.R;
+import com.whistledevelopers.dhakshinkitchen.model.ItemsModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class ConfirmOrderActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     public static Button btn_addItem,btn_placeorder;
     ProgressBar progressBar;
-    String url="http://192.168.43.14/Dhakshin/public/create";
+    //String url="http://192.168.43.14/Dhakshin/public/create";
+    String url="http://dhakshin.victoryschool.in/create";
+   public static List<ItemsModel> confirmOrderList;
+
     public static final String SHARED_PREF_NAME = "Dhakshin";
-    String dataList;
+    public static String dataList;
     String tableNum;
     String name;
     public static TextView txt_warning;
@@ -60,17 +60,21 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         recyclerView=(RecyclerView)findViewById(R.id.recycler_confirm_order);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //ArrayList<String> test = getIntent().getStringArrayListExtra("test");
+        confirmOrderList=new ArrayList<>();
         SharedPreferences sp = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
          name = sp.getString("type", null);
 
-
+        btn_placeorder.setEnabled(false);
         Intent intent=getIntent();
         //List<ItemsModel> itemModels=(List<ItemsModel>) intent.getSerializableExtra("test");
         tableNum=intent.getExtras().getString("tableno");
+        if(tableNum==null){
+            tableNum="";
+        }
 
-        ConfirmItemAdapter confirmItemAdapter=new ConfirmItemAdapter(this,OrderActivity.itemsModelList);
+        ConfirmItemAdapter confirmItemAdapter=new ConfirmItemAdapter(this, OrderActivity.itemsModelList);
         recyclerView.setAdapter(confirmItemAdapter);
+
         btn_addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,13 +93,20 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         int currentMinute=rightNow.get(Calendar.MINUTE);
         int currentSeconds=rightNow.get(Calendar.SECOND);
         time=String.valueOf(currentHourIn24Format)+String.valueOf(currentMinute)+String.valueOf(currentSeconds);
-        Toast.makeText(this, time, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, time, Toast.LENGTH_SHORT).show();
 
 
 
-        Gson gson=new Gson();
-        dataList=gson.toJson(OrderActivity.itemsModelList);
-    }
+       /* for(int i=0;i<OrderActivity.itemsModelList.size();i++){
+            ItemsModel model=new ItemsModel();
+            if(!OrderActivity.itemsModelList.get(i).getCount().equals("0"))
+            // model.setName(jsonObject1.getString("itemName"));
+            model.setName(OrderActivity.itemsModelList.get(i).getName());
+            model.setCount(OrderActivity.itemsModelList.get(i).getCount());
+            //model.setSelected(OrderActivity.itemsModelList.get(i).isSelected());
+            confirmOrderList.add(model);
+        }
+       */  }
 
     private void sendData() {
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -106,8 +117,6 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                     JSONObject jsonObject=new JSONObject(response);
                     if(jsonObject.getString("error").equals("false")){
                         showDialog();
-                    //    Toast.makeText(ConfirmOrderActivity.this, "Order Placed SuccessFully", Toast.LENGTH_SHORT).show();
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -117,7 +126,8 @@ public class ConfirmOrderActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(ConfirmOrderActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(ConfirmOrderActivity.this, R.string.error_msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConfirmOrderActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override

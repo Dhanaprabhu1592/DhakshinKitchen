@@ -4,8 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:layout_marginBottom="2dp"
-    android:paddingTop="5dp"
+    android:paddingTop="0dp"
     android:paddingRight="2dp"
+    android:id="@+id/relative"
     android:paddingLeft="2dp"
     >
     <android.support.v7.widget.CardView
@@ -18,6 +19,8 @@
     android:layout_height="50dp"
     android:paddingLeft="5dp"
     android:paddingRight="2dp"
+    android:layout_marginTop="5dp"
+    android:id="@+id/linear"
     android:orientation="horizontal"
     android:background="@color/buttonColor"
     android:elevation="5dp">
@@ -25,8 +28,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.7"
+        android:gravity="center"
         android:textColor="@android:color/white"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:id="@+id/txt_name"/>
     <TextView
         android:layout_width="match_parent"
@@ -35,7 +39,7 @@
         android:gravity="center_vertical|center_horizontal"
         android:layout_toRightOf="@+id/txt_name"
         android:textColor="@android:color/white"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:id="@+id/txt_count"/>
     <Button
         android:layout_width="match_parent"
@@ -44,6 +48,7 @@
         android:layout_weight="1"
         android:backgroundTint="@color/textColor"
         android:text="-"
+        android:visibility="visible"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textColor="@android:color/white"/>
         <TextView
@@ -60,6 +65,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btn_inc"
         android:layout_weight="1"
+        android:visibility="visible"
         android:backgroundTint="@color/textColor"
         android:text="+"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"

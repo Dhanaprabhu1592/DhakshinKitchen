@@ -1,11 +1,9 @@
-package com.whistledevelopers.dhakshinkitchen;
+package com.whistledevelopers.dhakshinkitchen.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Filter;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -31,6 +30,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.whistledevelopers.dhakshinkitchen.adapter.ItemAdapter;
+import com.whistledevelopers.dhakshinkitchen.model.ItemsModel;
+import com.whistledevelopers.dhakshinkitchen.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,19 +40,20 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class OrderActivity extends AppCompatActivity {
     public static ArrayList<ItemsModel> itemsModelList;
     //  List<ConfirmItemModel> confirmItemModel;
-    String url="http://192.168.43.14/Dhakshin/public/getMenu";
+    //String url="http://192.168.43.14/Dhakshin/public/getMenu";
+    String url="http://dhakshin.victoryschool.in/getMenu";
     RecyclerView recyclerView;
     Button btn_confirm;
     ItemAdapter itemAdapter;
     ActionBar actionBar;
     ProgressBar progressBar;
     ArrayList<ItemsModel> itemsModels;
-    TextView text_message;
+    public static TextView text_message,text_table;
+    LinearLayout linearSpin;
     public static final String SHARED_PREF_NAME = "Dhakshin";
     String[] tableNo = { "01", "02", "03", "04", "05","06","07","08"};
     String tableNum;
@@ -67,6 +70,8 @@ public class OrderActivity extends AppCompatActivity {
         progressBar=(ProgressBar)findViewById(R.id.progressbar);
         btn_confirm = (Button) findViewById(R.id.btn_confirm);
         text_message=(TextView)findViewById(R.id.text_messsge);
+        text_table=(TextView)findViewById(R.id.text_table);
+        linearSpin=(LinearLayout)findViewById(R.id.linear);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -74,7 +79,12 @@ public class OrderActivity extends AppCompatActivity {
 
         SharedPreferences sp = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
         String name = sp.getString("reloadArray", null);
+        String type = sp.getString("type", null);
+
         Spinner spin = (Spinner) findViewById(R.id.spinner_table);
+        if(type.equals("takeaway")){
+        linearSpin.setVisibility(View.GONE);
+        }
 
 
         //Creating the ArrayAdapter instance having the country list
@@ -102,7 +112,7 @@ public class OrderActivity extends AppCompatActivity {
                 getData();
 
 
-            }else{
+            }else if(name.equals("true")){
                 getDataAgain();
             }
         }
@@ -129,7 +139,6 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 try {
-                    text_message.setVisibility(View.GONE);
                     progressBar.setVisibility(View.INVISIBLE);
                     JSONObject jsonObject=new JSONObject(response);
                     String message=jsonObject.getString("error");
@@ -142,6 +151,7 @@ public class OrderActivity extends AppCompatActivity {
                         ItemsModel model=new ItemsModel();
                         model.setName(jsonObject1.getString("itemName"));
                         model.setCount("0");
+                        model.setQuantity(jsonObject1.getInt("quantity"));
                         model.setSelected(false);
                         arrayList.add(model);
 
@@ -151,8 +161,9 @@ public class OrderActivity extends AppCompatActivity {
                     itemsModelList=arrayList;
                     itemAdapter = new ItemAdapter(OrderActivity.this, itemsModelList);
                     recyclerView.setAdapter(itemAdapter);
-
+                    text_message.setText("No Items Found");
                 } catch (JSONException e) {
+                    Toast.makeText(OrderActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
 
@@ -160,6 +171,7 @@ public class OrderActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(OrderActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -167,7 +179,7 @@ public class OrderActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
     }
     public void getDataAgain(){
-       text_message.setVisibility(View.GONE);
+        text_message.setText("No Data Found");
         ArrayList arrayList=new ArrayList();
         for(int i=0;i<OrderActivity.itemsModelList.size();i++){
             ItemsModel model=new ItemsModel();
@@ -187,6 +199,7 @@ public class OrderActivity extends AppCompatActivity {
 
     }
 
+/*
     private ArrayList<ItemsModel> getModel() {
         ArrayList<ItemsModel> itemsModels = new ArrayList<>();
         for (int i = 0; i < itemList.length; i++) {
@@ -210,6 +223,7 @@ public class OrderActivity extends AppCompatActivity {
         }
         return itemsModels;
     }
+*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -220,7 +234,7 @@ public class OrderActivity extends AppCompatActivity {
         MenuItem menuItem = menu.findItem(R.id.search);
 
 
-        SearchView searchView = (SearchView) menuItem.getActionView();
+            SearchView searchView = (SearchView) menuItem.getActionView();
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

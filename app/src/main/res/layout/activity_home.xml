@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".HomeActivity"
+    tools:context=".activity.HomeActivity"
    >
     <ScrollView
         android:layout_width="match_parent"
@@ -31,11 +31,22 @@
                 android:layout_margin="20dp"
                 android:orientation="vertical"
                 android:weightSum="4">
+                <Button
+                    android:id="@+id/take_away"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/btn_bg"
+                    android:fontFamily="@font/impacted"
+                    android:text="@string/menu_takeaway"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@color/textColor" />
+
 
                 <Button
                     android:id="@+id/btn_new"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/btn_bg"
                     android:fontFamily="@font/impacted"
                     android:text="@string/menu_new"
@@ -64,16 +75,6 @@
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                     android:textColor="@color/textColor" />
 
-                <Button
-                    android:id="@+id/take_away"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/btn_bg"
-                    android:fontFamily="@font/impacted"
-                    android:text="@string/menu_takeaway"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                    android:textColor="@color/textColor" />
 
 
             </LinearLayout>

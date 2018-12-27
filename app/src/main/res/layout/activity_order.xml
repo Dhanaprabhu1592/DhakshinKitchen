@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".OrderActivity">
+    tools:context=".activity.OrderActivity">
     <ProgressBar
         android:id="@+id/progressbar"
         style="?android:attr/progressBarStyleHorizontal"
@@ -33,6 +33,7 @@
             android:text="Select Table     :"
             android:layout_weight="1"
              android:gravity="center"
+             android:id="@+id/text_table"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
             android:layout_gravity="center"
             android:textColor="@color/colorPrimaryDark"/>
@@ -69,7 +70,8 @@
         android:layout_below="@+id/view"
         android:layout_weight="1"
         android:layout_marginTop="3dp"
-        android:id="@+id/recycler_view"></android.support.v7.widget.RecyclerView>
+        android:id="@+id/recycler_view"
+        android:layout_above="@+id/btn_confirm"></android.support.v7.widget.RecyclerView>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

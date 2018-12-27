@@ -3,6 +3,7 @@
     package="com.whistledevelopers.dhakshinkitchen">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -11,24 +12,24 @@
         android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".activity.HomeActivity" />
         <activity
-            android:name=".OrderActivity"
+            android:name=".activity.OrderActivity"
             android:theme="@style/Theme.AppCompat.Light">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeActivity" />
+                android:value=".activity.HomeActivity" />
         </activity>
-        <activity android:name=".ConfirmOrderActivity" />
-        <activity android:name=".OngoingActivity"></activity>
-        <activity android:name=".HistoryActivity"></activity>
+        <activity android:name=".activity.ConfirmOrderActivity" />
+        <activity android:name=".activity.OngoingActivity" />
+        <activity android:name=".activity.HistoryActivity" />
     </application>
 
 </manifest>

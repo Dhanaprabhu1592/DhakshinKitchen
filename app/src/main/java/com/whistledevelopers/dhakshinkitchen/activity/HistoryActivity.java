@@ -1,8 +1,9 @@
-package com.whistledevelopers.dhakshinkitchen;
+package com.whistledevelopers.dhakshinkitchen.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,6 +17,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.whistledevelopers.dhakshinkitchen.adapter.HistoryAdapter;
+import com.whistledevelopers.dhakshinkitchen.model.OngoingModel;
+import com.whistledevelopers.dhakshinkitchen.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,21 +28,26 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OngoingActivity extends AppCompatActivity {
+public class HistoryActivity extends AppCompatActivity {
 
     List<OngoingModel> ongoingModels;
+    SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
     ProgressBar progressBar;
     TextView text_message;
     Button btnBack;
-    String url="http://192.168.43.14/Dhakshin/public/ongoing";
+    HistoryAdapter ongoingAdapter;
+    //String url="http://192.168.43.14/Dhakshin/public/history";
+    String url="http://dhakshin.victoryschool.in/history";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ongoing);
+        setContentView(R.layout.activity_history);
         btnBack=(Button)findViewById(R.id.btn_back);
         progressBar=(ProgressBar)findViewById(R.id.progressbar);
         text_message=(TextView)findViewById(R.id.text_messsge);
+        swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeToRefresh);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_ongoing);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -46,14 +55,24 @@ public class OngoingActivity extends AppCompatActivity {
         ongoingModels = new ArrayList<>();
 
         getData();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ongoingModels.clear();
+                ongoingAdapter.notifyDataSetChanged();
+                getData();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentHistory=new Intent(OngoingActivity.this,HistoryActivity.class);
+                Intent intentHistory=new Intent(HistoryActivity.this,HomeActivity.class);
                 intentHistory.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentHistory);
 
-            }
+    }
         });
 
     }
@@ -69,13 +88,13 @@ public class OngoingActivity extends AppCompatActivity {
                     String message=jsonObject.getString("error");
                     //Toast.makeText(OngoingActivity.this, message, Toast.LENGTH_SHORT).show();
 
-                    JSONArray jsonArray=jsonObject.getJSONArray("ongoing");
+                    JSONArray jsonArray=jsonObject.getJSONArray("history");
                     for(int i=0;i<jsonArray.length();i++){
                         JSONObject object=jsonArray.getJSONObject(i);
                         ongoingModels.add(new OngoingModel(object.getString("type"),object.getString("status"),object.getString("orderId")));
 
                     }
-                  OngoingAdapter ongoingAdapter=new OngoingAdapter(OngoingActivity.this,ongoingModels);
+                   ongoingAdapter=new HistoryAdapter(HistoryActivity.this,ongoingModels);
                     recyclerView.setAdapter(ongoingAdapter);
                     if(ongoingAdapter.getItemCount()!=0){
                         text_message.setVisibility(View.GONE);
@@ -85,12 +104,13 @@ public class OngoingActivity extends AppCompatActivity {
                 }
 
 
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(OngoingActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HistoryActivity.this, R.string.error_msg, Toast.LENGTH_SHORT).show();
             }
         });
         Volley.newRequestQueue(this).add(stringRequest);

@@ -1,4 +1,4 @@
-package com.whistledevelopers.dhakshinkitchen;
+package com.whistledevelopers.dhakshinkitchen.model;
 
 import java.io.Serializable;
 
