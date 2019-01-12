@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.btn_new:
                 editor.putString("type", "dining");
+                editor.putString("reloadArray", "false");
 
                 editor.apply();
 
@@ -60,6 +61,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.take_away:
                 editor.putString("type", "takeaway");
+                editor.putString("reloadArray", "false");
 
                 editor.apply();
 

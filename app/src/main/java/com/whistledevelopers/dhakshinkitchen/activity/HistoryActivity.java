@@ -37,7 +37,6 @@ public class HistoryActivity extends AppCompatActivity {
     TextView text_message;
     Button btnBack;
     HistoryAdapter ongoingAdapter;
-    //String url="http://192.168.43.14/Dhakshin/public/history";
     String url="http://dhakshin.victoryschool.in/history";
 
     @Override

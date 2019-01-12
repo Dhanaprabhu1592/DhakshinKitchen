@@ -6,14 +6,14 @@ android {
         applicationId "com.whistledevelopers.dhakshinkitchen"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 6
-        versionName "1.1"
+        versionCode 8
+        versionName "1.1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

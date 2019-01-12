@@ -8,13 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -48,6 +51,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     String name;
     public static TextView txt_warning;
     String time;
+    ImageView back_confirm_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         btn_addItem=(Button)findViewById(R.id.add_item);
         btn_placeorder=(Button)findViewById(R.id.btn_placeorder);
         txt_warning=(TextView)findViewById(R.id.text_warning);
+        back_confirm_btn=(ImageView)findViewById(R.id.back_confirm_btn);
         progressBar=(ProgressBar)findViewById(R.id.progressbar);
         recyclerView=(RecyclerView)findViewById(R.id.recycler_confirm_order);
         recyclerView.setHasFixedSize(true);
@@ -93,6 +98,16 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         int currentMinute=rightNow.get(Calendar.MINUTE);
         int currentSeconds=rightNow.get(Calendar.SECOND);
         time=String.valueOf(currentHourIn24Format)+String.valueOf(currentMinute)+String.valueOf(currentSeconds);
+
+        back_confirm_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentBack=new Intent(ConfirmOrderActivity.this,OrderActivity.class);
+                intentBack.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentBack);
+
+            }
+        });
         //Toast.makeText(this, time, Toast.LENGTH_SHORT).show();
 
 
@@ -126,13 +141,14 @@ public class ConfirmOrderActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressBar.setVisibility(View.INVISIBLE);
-              //  Toast.makeText(ConfirmOrderActivity.this, R.string.error_msg, Toast.LENGTH_SHORT).show();
+
                 Toast.makeText(ConfirmOrderActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map map=new HashMap();
+                Log.d("DataList",dataList);
                 map.put("orderData",dataList);
                 map.put("billAmount","");
                 map.put("orderId",tableNum+time);
@@ -142,6 +158,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                 return map;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(60000,6,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(this).add(stringRequest);
         progressBar.setVisibility(View.VISIBLE);
     }
@@ -169,5 +186,6 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
 }
 

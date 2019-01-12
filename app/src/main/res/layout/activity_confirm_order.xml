@@ -20,10 +20,16 @@
             android:orientation="horizontal"
             android:background="@color/buttonColor"
             android:elevation="5dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back_24dp"
+                android:id="@+id/back_confirm_btn"
+                android:layout_gravity="center"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="Name"
                 android:layout_gravity="center"
                 android:gravity="center"

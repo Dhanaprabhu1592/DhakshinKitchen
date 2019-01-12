@@ -186,9 +186,10 @@ public class OrderActivity extends AppCompatActivity {
             // model.setName(jsonObject1.getString("itemName"));
             model.setName(OrderActivity.itemsModelList.get(i).getName());
             model.setCount(OrderActivity.itemsModelList.get(i).getCount());
+            model.setQuantity(OrderActivity.itemsModelList.get(i).getQuantity());
             model.setSelected(OrderActivity.itemsModelList.get(i).isSelected());
-            arrayList.add(model);
 
+            arrayList.add(model);
 
 
         }
